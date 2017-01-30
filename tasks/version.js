@@ -22,11 +22,11 @@ const $ = Plugins();
 
 function version(importance) {
   // get all the files to bump version in
-  return Gulp.src(['../package.json', '../bower.json'])
+  return Gulp.src(['./package.json', './bower.json'])
     // bump the version number in those files
     .pipe($.bump({ type: importance }))
     // save it back to filesystem
-    .pipe(Gulp.dest('../'))
+    .pipe(Gulp.dest('./'))
     // commit the changed version number
     .pipe($.git.commit('bumps package version'))
     // read only one file to get the version number
