@@ -8,8 +8,8 @@ import Clean from 'gulp-clean';
 import templates from './tasks/templates';
 import stylesheets from './tasks/stylesheets';
 import javascripts from './tasks/javascripts';
-import version from './tasks/version';
 import server from './tasks/server';
+import version from './tasks/version';
 
 Gulp.task('clean', () => Gulp.src([ `${Config.dist.root}` ], { read: false })
   .pipe(Clean({ force: true })));

@@ -14,7 +14,6 @@
  * introduced a feature or made a backwards-incompatible release.
  */
 
-import pkg from '../package.json';
 import Gulp from 'gulp';
 import Plugins from 'gulp-load-plugins';
 
