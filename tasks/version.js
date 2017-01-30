@@ -16,6 +16,9 @@
 
 import pkg from '../package.json';
 import Gulp from 'gulp';
+import Plugins from 'gulp-load-plugins';
+
+const $ = Plugins();
 
 function version(importance) {
   // get all the files to bump version in
