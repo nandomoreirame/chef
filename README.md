@@ -1,3 +1,3 @@
 # Chef
 
-> Create style guides like a boss using GulpJS
+> Create styleguide like a boss using GulpJS
