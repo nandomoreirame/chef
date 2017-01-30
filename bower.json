@@ -1,0 +1,28 @@
+{
+  "name": "chef",
+  "description": "Create styleguide like a boss using GulpJS",
+  "main": "gulpfile.babel.js",
+  "authors": [
+    "Fernando Moreira"
+  ],
+  "license": "MIT",
+  "keywords": [
+    "gulp",
+    "gulpjs",
+    "js",
+    "styleguide",
+    "markdown",
+    "md"
+  ],
+  "homepage": "https://github.com/nandomoreirame/chef",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "prism-js": "^1.0.0"
+  }
+}

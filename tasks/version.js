@@ -20,7 +20,7 @@ import Plugins from 'gulp-load-plugins';
 
 const $ = Plugins();
 
-function version(importance) {
+function _version(importance) {
   // get all the files to bump version in
   return Gulp.src(['./package.json', './bower.json'])
     // bump the version number in those files
@@ -35,6 +35,6 @@ function version(importance) {
     .pipe($.tagVersion());
 }
 
-Gulp.task('version:patch', () => version('patch'));
-Gulp.task('version:feature', () => version('minor'));
-Gulp.task('version:release', () => version('major'));
+Gulp.task('version:patch', () => _version('patch'));
+Gulp.task('version:feature', () => _version('minor'));
+Gulp.task('version:release', () => _version('major'));

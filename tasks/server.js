@@ -2,19 +2,20 @@
 
 import pkg from '../package.json';
 import Config from './config';
-
+import browserSync from 'browser-sync';
 import Gulp from 'gulp';
-import BrowserSync from 'browser-sync';
 
-const bSync = BrowserSync.create();
-const reload = bSync.reload;
+const bSync = browserSync.create();
 
-Gulp.task('server', function () {
+Gulp.task('server', () => {
   bSync.init({
     server: {
       baseDir: `${Config.dist.root}`
     }
   });
 
-  Gulp.watch(`${Config.dist.root}/**/*`).on('change', reload);
+  Gulp.watch(`${Config.src.root}/**/*.{html,md,markdown}`, ['templates']);
+  Gulp.watch(`${Config.src.stylesheets}/**/*.{sass,scss}`, ['stylesheets']);
+  Gulp.watch(`${Config.src.javascripts}/**/*`, ['javascripts']);
+  Gulp.watch(`${Config.dist.root}/**/*.{html,css,js}`).on('change', bSync.reload);
 });

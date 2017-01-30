@@ -1,23 +1,25 @@
 'use strict';
 
+import pkg from '../package.json';
+import Notify from 'gulp-notify';
 import Bourbon from 'node-bourbon';
 
 const config = {
   src: {
-    root: `./docs`,
-    javascripts: `./docs/_assets/javascripts`,
-    stylesheets: `./docs/_assets/stylesheets`,
-    fonts: `./docs/_assets/fonts`,
-    images: `./docs/_assets/images`,
-    layouts: `./docs/_layouts`,
-    pages: `./docs/_pages`,
+    root: './docs',
+    javascripts: './docs/_assets/javascripts',
+    stylesheets: './docs/_assets/stylesheets',
+    fonts: './docs/_assets/fonts',
+    images: './docs/_assets/images',
+    layouts: './docs/_layouts',
+    pages: './docs/_pages',
   },
   dist: {
-    root: `./dist`,
-    javascripts: `./dist/assets/javascripts`,
-    stylesheets: `./dist/assets/stylesheets`,
-    fonts: `./dist/assets/fonts`,
-    images: `./dist/assets/images`
+    root: './dist',
+    javascripts: './dist/assets/javascripts',
+    stylesheets: './dist/assets/stylesheets',
+    fonts: './dist/assets/fonts',
+    images: './dist/assets/images'
   },
   sassConfig: {
     compass: true,
@@ -30,7 +32,16 @@ const config = {
       `sass`,
       `stylesheets`,
       `node_modules`,
-      `bower`
+      `bower_components`
+    ]
+  },
+  jsIncludeConfig: {
+    extensions: 'js',
+    includePaths: [
+      `node_modules`,
+      `bower_components`,
+      `js`,
+      `javascripts`,
     ]
   },
   autoprefixer: {
@@ -47,10 +58,41 @@ const config = {
     ],
     cascade: false
   },
+  jsbeautifier: {
+    indent_size: 2,
+    indent_char: ' ',
+  },
+  imageConfig: {
+    pngquant: true,
+    optipng: true,
+    zopflipng: true,
+    advpng: true,
+    jpegRecompress: false,
+    jpegoptim: true,
+    mozjpeg: true,
+    gifsicle: true,
+    svgo: true
+  },
   frontMatter: {
     property: 'page',
     remove: true
-  }
+  },
+  plumberHandler: {
+    errorHandler: Notify.onError({
+      title   : 'Gulp',
+      message : 'Error: <%= error.message %>'
+    })
+  },
+  banner: [
+    '/**',
+    ' * <%= pkg.name %> - <%= pkg.description %>',
+    ' * @version v<%= pkg.version %>',
+    ' * @license <%= pkg.license %>',
+    ' * @copyright 2016 <%= pkg.author %>.',
+    ' * @link <%= pkg.url %>',
+    ' */',
+    ''
+  ]
 };
 
 module.exports = config;
