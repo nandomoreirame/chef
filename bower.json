@@ -1,5 +1,6 @@
 {
   "name": "chef",
+  "version": "0.0.2",
   "description": "Create styleguide like a boss using GulpJS",
   "main": "gulpfile.babel.js",
   "authors": [
