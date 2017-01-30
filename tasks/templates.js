@@ -1,14 +1,14 @@
 'use strict';
 
-import fs      from 'fs';
-import path    from 'path';
+import fs from 'fs';
+import path from 'path';
 import through from 'through2';
-import swig    from 'swig';
+import swig from 'swig';
 
-import pkg     from '../package.json';
-import Config  from './config';
+import pkg from '../package.json';
+import Config from './config';
 
-import Gulp    from 'gulp';
+import Gulp from 'gulp';
 import Plugins from 'gulp-load-plugins';
 
 const $ = Plugins();

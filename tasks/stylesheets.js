@@ -1,9 +1,9 @@
 'use strict';
 
-import pkg     from '../package.json';
-import Config  from './config';
+import pkg from '../package.json';
+import Config from './config';
 
-import Gulp    from 'gulp';
+import Gulp from 'gulp';
 import Plugins from 'gulp-load-plugins';
 
 const $ = Plugins();
