@@ -1,6 +1,6 @@
 {
   "name": "chef",
-  "version": "1.0.0",
+  "version": "0.0.0",
   "description": "Create styleguide like a boss using GulpJS",
   "url": "https://github.com/nandomoreirame/chef",
   "main": "gulpfile.babel.js",
@@ -32,9 +32,12 @@
     "browser-sync": "^2.18.6",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.1",
+    "gulp-bump": "^2.6.1",
     "gulp-combine-mq": "^0.4.0",
     "gulp-cssnano": "^2.1.2",
+    "gulp-filter": "^5.0.0",
     "gulp-front-matter": "^1.3.0",
+    "gulp-git": "^1.12.0",
     "gulp-header": "^1.8.8",
     "gulp-load-plugins": "^1.4.0",
     "gulp-marked": "^1.0.0",
@@ -44,6 +47,7 @@
     "gulp-replace": "^0.5.4",
     "gulp-sass": "^3.1.0",
     "gulp-size": "^2.1.0",
+    "gulp-tag-version": "^1.3.0",
     "node-bourbon": "^4.2.8",
     "swig": "^1.4.2"
   }
