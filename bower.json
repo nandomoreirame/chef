@@ -4,7 +4,7 @@
   "description": "Create styleguide like a boss using Gulp!",
   "main": "gulpfile.babel.js",
   "authors": [
-    "Fernando Moreira"
+    "Fernando Moreira <nandomoreira.me+github@gmail.com>"
   ],
   "license": "MIT",
   "keywords": [

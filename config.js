@@ -1,6 +1,6 @@
 'use strict';
 
-import pkg from '../package.json';
+import pkg from './package.json';
 import Notify from 'gulp-notify';
 import Bourbon from 'node-bourbon';
 
@@ -13,6 +13,7 @@ const config = {
     images: './docs/_assets/images',
     layouts: './docs/_layouts',
     pages: './docs/_pages',
+    demos: './docs/_demos',
   },
   dist: {
     root: './dist',

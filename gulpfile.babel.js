@@ -1,6 +1,6 @@
 'use strict';
 
-import Config from './tasks/config';
+import Config from './config';
 import Gulp from 'gulp';
 import Sequence from 'run-sequence';
 import Clean from 'gulp-clean';

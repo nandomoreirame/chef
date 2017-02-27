@@ -1,4 +1,6 @@
 ---
-layout: default
+layout: page
 bodyclass: page-index
 ---
+
+# index

@@ -6,7 +6,7 @@ import through from 'through2';
 import swig from 'swig';
 
 import pkg from '../package.json';
-import Config from './config';
+import Config from '../config';
 
 import Gulp from 'gulp';
 import Plugins from 'gulp-load-plugins';
@@ -35,7 +35,10 @@ function _applyLayout() {
   });
 }
 
-Gulp.task('templates', () => Gulp.src([ `${Config.src.pages}/*.md` ])
+Gulp.task('demos', () => Gulp.src([ `${Config.src.demos}/**/*` ])
+  .pipe(Gulp.dest(`${Config.dist.root}/demos`)));
+
+Gulp.task('templates', ['demos'], () => Gulp.src([ `${Config.src.pages}/*.md` ])
   .pipe($.frontMatter(Config.frontMatter))
   .pipe($.marked())
   .pipe(_applyLayout())
@@ -46,4 +49,5 @@ Gulp.task('templates', () => Gulp.src([ `${Config.src.pages}/*.md` ])
       path.basename = 'index';
     }
   }))
+  .pipe($.htmlmin({ collapseWhitespace: true }))
   .pipe(Gulp.dest(`${Config.dist.root}`)));

@@ -1,7 +1,7 @@
 'use strict';
 
 import pkg from '../package.json';
-import Config from './config';
+import Config from '../config';
 import browserSync from 'browser-sync';
 import Gulp from 'gulp';
 
@@ -14,7 +14,7 @@ Gulp.task('server', () => {
     }
   });
 
-  Gulp.watch(`${Config.src.root}/**/*.{html,md,markdown}`, ['templates']);
+  Gulp.watch(`${Config.src.root}/**/*.{html,md,markdown}`, ['demos', 'templates']);
   Gulp.watch(`${Config.src.stylesheets}/**/*.{sass,scss}`, ['stylesheets']);
   Gulp.watch(`${Config.src.javascripts}/**/*`, ['javascripts']);
   Gulp.watch(`${Config.dist.root}/**/*.{html,css,js}`).on('change', bSync.reload);
