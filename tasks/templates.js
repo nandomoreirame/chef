@@ -4,6 +4,7 @@ import fs from 'fs';
 import path from 'path';
 import through from 'through2';
 import swig from 'swig';
+import frontMatter from 'front-matter';
 
 import pkg from '../package.json';
 import Config from '../config';
@@ -13,41 +14,59 @@ import Plugins from 'gulp-load-plugins';
 
 const $ = Plugins();
 
-/**
- * Site metadata for use with templates.
- * @type {Object}
- */
-const site = {};
-
-function _applyLayout() {
-  return through.obj((file, enc, cb) => {
-    const data = {
-      site,
-      page: file.page,
-      content: file.contents.toString()
-    };
-
-    const layoutFile = path.join(__dirname, '../docs', '_layouts', `${file.page.layout}.html`);
-    const layout = swig.compileFile(layoutFile, {cache: false});
-
-    file.contents = new Buffer(layout(data));
-    cb(null, file);
-  });
-}
-
 Gulp.task('demos', () => Gulp.src([ `${Config.src.demos}/**/*` ])
   .pipe(Gulp.dest(`${Config.dist.root}/demos`)));
 
-Gulp.task('templates', ['demos'], () => Gulp.src([ `${Config.src.pages}/*.md` ])
-  .pipe($.frontMatter(Config.frontMatter))
-  .pipe($.marked())
-  .pipe(_applyLayout())
-  .pipe($.replace('$$version$$', pkg.version))
-  .pipe($.rename(path => {
-    if (path.basename !== 'index') {
-      path.dirname = path.basename;
-      path.basename = 'index';
-    }
-  }))
-  .pipe($.htmlmin({ collapseWhitespace: true }))
-  .pipe(Gulp.dest(`${Config.dist.root}`)));
+Gulp.task('templates', ['demos'], () => {
+
+  /**
+   * Site metadata for use with templates.
+   * @type {Object}
+   */
+  const site = {};
+
+  const getLayoutPath = function (name) {
+    return path.resolve(process.cwd(), `${Config.src.layouts}/`, `${name}.hbs`);
+  }
+
+  const parseContent = function (file) {
+    return frontMatter(String(file.contents));
+  }
+
+  const compileHtml = function () {
+    return $.compileHandlebars({}, Config.handlebars);
+  };
+
+  const parseData = function (file) {
+    const content = parseContent(file);
+
+    file.contents = new Buffer(content.body);
+
+    return content.attributes;
+  };
+
+  const wrapHtml = function (file, name) {
+    const html = String(file.contents),
+          path = getLayoutPath(name);
+
+    file.contents = fs.readFileSync(path);
+    return { content: html };
+  }
+
+  Gulp.src([ `${Config.src.pages}/*.hbs` ])
+    .pipe($.plumber(Config.plumberHandler))
+    .pipe($.data((file) => parseData(file)))
+    .pipe(compileHtml())
+    .pipe($.data((file) => wrapHtml(file, file.data.layout)))
+    .pipe(compileHtml())
+    .pipe($.rename(path => {
+      if (path.basename !== 'index') {
+        path.dirname = path.basename;
+        path.basename = 'index';
+      }
+      path.extname = '.html';
+    }))
+    // .pipe($.htmlmin({ collapseWhitespace: true }))
+    .pipe(Gulp.dest(`${Config.dist.root}`))
+    .pipe($.plumber.stop());
+});

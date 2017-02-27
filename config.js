@@ -11,9 +11,9 @@ const config = {
     stylesheets: './docs/_assets/stylesheets',
     fonts: './docs/_assets/fonts',
     images: './docs/_assets/images',
-    layouts: './docs/_layouts',
-    pages: './docs/_pages',
     demos: './docs/_demos',
+    layouts: './docs/_partials/layouts',
+    pages: './docs/pages',
   },
   dist: {
     root: './dist',
@@ -78,6 +78,10 @@ const config = {
     property: 'page',
     remove: true
   },
+  handlebars: {
+    ignorePartials: true,
+    batch: ['./docs/_partials']
+  },
   plumberHandler: {
     errorHandler: Notify.onError({
       title   : 'Gulp',
@@ -89,7 +93,7 @@ const config = {
     ' * <%= pkg.name %> - <%= pkg.description %>',
     ' * @version v<%= pkg.version %>',
     ' * @license <%= pkg.license %>',
-    ' * @copyright 2016 <%= pkg.author %>.',
+    ' * @copyright 2017 <%= pkg.author %>.',
     ' * @link <%= pkg.url %>',
     ' */',
     ''
