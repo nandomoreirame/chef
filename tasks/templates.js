@@ -2,8 +2,6 @@
 
 import fs from 'fs';
 import path from 'path';
-import through from 'through2';
-import swig from 'swig';
 import frontMatter from 'front-matter';
 
 import pkg from '../package.json';
@@ -15,35 +13,19 @@ import Plugins from 'gulp-load-plugins';
 const $ = Plugins();
 
 Gulp.task('demos', () => Gulp.src([ `${Config.src.demos}/**/*` ])
+  .pipe($.size({ title: 'Demo files!', gzip: false, showFiles: true }))
   .pipe(Gulp.dest(`${Config.dist.root}/demos`)));
 
 Gulp.task('templates', ['demos'], () => {
-
-  /**
-   * Site metadata for use with templates.
-   * @type {Object}
-   */
-  const site = {};
-
-  const getLayoutPath = function (name) {
-    return path.resolve(process.cwd(), `${Config.src.layouts}/`, `${name}.hbs`);
-  }
-
-  const parseContent = function (file) {
-    return frontMatter(String(file.contents));
-  }
-
-  const compileHtml = function () {
-    return $.compileHandlebars({}, Config.handlebars);
-  };
-
   const parseData = function (file) {
-    const content = parseContent(file);
-
+    const content = frontMatter(String(file.contents));
     file.contents = new Buffer(content.body);
-
     return content.attributes;
   };
+
+  const getLayoutPath = function (name) {
+    return path.resolve(process.cwd(), `${Config.src.layouts}/`, `${name}.pug`);
+  }
 
   const wrapHtml = function (file, name) {
     const html = String(file.contents),
@@ -53,12 +35,17 @@ Gulp.task('templates', ['demos'], () => {
     return { content: html };
   }
 
-  Gulp.src([ `${Config.src.pages}/*.hbs` ])
+  return Gulp.src([ `${Config.src.pages}/*.md` ])
     .pipe($.plumber(Config.plumberHandler))
+    .pipe($.data((file) => require('../docs/config.json')))
     .pipe($.data((file) => parseData(file)))
-    .pipe(compileHtml())
+    .pipe($.fileInclude({
+      prefix: '@@',
+      basepath: './docs/'
+    }))
+    .pipe($.markdown())
     .pipe($.data((file) => wrapHtml(file, file.data.layout)))
-    .pipe(compileHtml())
+    .pipe($.pug())
     .pipe($.rename(path => {
       if (path.basename !== 'index') {
         path.dirname = path.basename;
@@ -66,7 +53,9 @@ Gulp.task('templates', ['demos'], () => {
       }
       path.extname = '.html';
     }))
+    .pipe($.jsbeautifier({ indent_level: 2 }))
     // .pipe($.htmlmin({ collapseWhitespace: true }))
+    .pipe($.size({ title: 'Templates!', gzip: false, showFiles: true }))
     .pipe(Gulp.dest(`${Config.dist.root}`))
     .pipe($.plumber.stop());
 });

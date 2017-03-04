@@ -14,7 +14,7 @@ Gulp.task('server', () => {
     }
   });
 
-  Gulp.watch(`${Config.src.root}/**/*.{html,md,markdown}`, ['demos', 'templates']);
+  Gulp.watch(`${Config.src.root}/**/*.{pug,html,md,markdown}`, ['demos', 'templates']);
   Gulp.watch(`${Config.src.stylesheets}/**/*.{sass,scss}`, ['stylesheets']);
   Gulp.watch(`${Config.src.javascripts}/**/*`, ['javascripts']);
   Gulp.watch(`${Config.dist.root}/**/*.{html,css,js}`).on('change', bSync.reload);

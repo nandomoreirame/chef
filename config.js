@@ -7,12 +7,12 @@ import Bourbon from 'node-bourbon';
 const config = {
   src: {
     root: './docs',
-    javascripts: './docs/_assets/javascripts',
-    stylesheets: './docs/_assets/stylesheets',
-    fonts: './docs/_assets/fonts',
-    images: './docs/_assets/images',
-    demos: './docs/_demos',
-    layouts: './docs/_partials/layouts',
+    javascripts: './docs/assets/javascripts',
+    stylesheets: './docs/assets/stylesheets',
+    fonts: './docs/assets/fonts',
+    images: './docs/assets/images',
+    demos: './docs/demos',
+    layouts: './docs/layouts',
     pages: './docs/pages',
   },
   dist: {
@@ -77,10 +77,6 @@ const config = {
   frontMatter: {
     property: 'page',
     remove: true
-  },
-  handlebars: {
-    ignorePartials: true,
-    batch: ['./docs/_partials']
   },
   plumberHandler: {
     errorHandler: Notify.onError({
