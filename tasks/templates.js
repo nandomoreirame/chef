@@ -54,7 +54,7 @@ Gulp.task('templates', ['demos'], () => {
       path.extname = '.html';
     }))
     .pipe($.jsbeautifier({ indent_level: 2 }))
-    // .pipe($.htmlmin({ collapseWhitespace: true }))
+    .pipe($.htmlmin({ collapseWhitespace: true }))
     .pipe($.size({ title: 'Templates!', gzip: false, showFiles: true }))
     .pipe(Gulp.dest(`${Config.dist.root}`))
     .pipe($.plumber.stop());

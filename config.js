@@ -33,7 +33,8 @@ const config = {
       `sass`,
       `stylesheets`,
       `node_modules`,
-      `bower_components`
+      `bower_components`,
+      `bower_components/karin-css/sass`
     ]
   },
   jsIncludeConfig: {

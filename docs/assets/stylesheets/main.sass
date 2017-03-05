@@ -1,15 +1,10 @@
 @import 'prism/themes/prism'
-
-html
-  font-size: 16px
-
-body
-  font-family: Arial, Helvetica, sans-serif
-  background-color: #f7f8f9
-  font-size: 1rem
+@import 'bootstrap/scss/bootstrap'
 
 code[class*=language-],
 pre[class*=language-]
+  font-family: $font-family-monospace
+  font-size: .8rem
   color: rgba(0, 0, 0, .87)
   text-shadow: none
 
@@ -18,56 +13,3 @@ pre[class*=language-]
 
   code
     background: none
-
-.container
-  max-width: 1024px
-  margin-left: auto
-  margin-right: auto
-
-$button-default-color: #323232
-$button-default-bg: #ffd400
-$button-default-border: darken($button-default-bg, 5%)
-
-$button-primary-color: #fff
-$button-primary-bg: #0C59A0
-$button-primary-border: darken($button-primary-bg, 5%)
-
-.button
-  padding: 0 20px
-  line-height: 40px
-  vertical-align: middle
-  background-color: $button-default-bg
-  border: 1px solid $button-default-border
-  font-size: 1rem
-  font-weight: 400
-  font-family: Arial, Helvetica, sans-serif
-  color: #323232
-  border-radius: 3px
-  cursor: pointer
-  transition: color .25s, background-color .25s, border-color .25s, box-shadow .25s
-  position: relative
-  text-align: center
-  white-space: nowrap
-  -webkit-user-select: none
-  -webkit-user-drag: none
-  zoom: 1
-  -webkit-appearance: none
-  box-shadow: 0 2px 0 $button-default-border
-
-  &:hover,
-  &:focus
-    background-color: lighten($button-default-bg, 5%)
-    box-shadow: 0 2px 0 darken($button-default-border, 10%)
-    border-color: darken($button-default-border, 10%)
-
-  &--primary
-    color: $button-primary-color
-    background-color: $button-primary-bg
-    border-color: $button-primary-border
-
-    &:hover,
-    &:focus
-      background-color: lighten($button-primary-bg, 5%)
-      box-shadow: 0 2px 0 darken($button-primary-border, 10%)
-      border-color: darken($button-primary-border, 10%)
-
