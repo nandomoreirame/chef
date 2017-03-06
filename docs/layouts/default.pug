@@ -17,14 +17,14 @@ html
       e.src='//www.google-analytics.com/analytics.js';
       r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
       ga('create','#{google_analytics}');ga('send','pageview');
-  body
-    main.container
-      h1= title
+  body(class="cf-body cf-page-" + page_class)
+    main.cf-main
+      include ../layouts/_sidebar.pug
       block content
-        .content!= content
-    block footer
-      footer#footer.container
-        p // footer default
+        h1= title
+        .cf-content!= content
+        footer.cf-footer
+          p // footer default
     block scripts
       each file in javascripts
         script(src='/assets/javascripts/' + file)
