@@ -11,10 +11,11 @@ import Gulp from 'gulp';
 import Plugins from 'gulp-load-plugins';
 
 const $ = Plugins();
+const isProd = Config.environment === 'production' ? true : false;
 
-Gulp.task('demos', () => Gulp.src([ `${Config.src.demos}/**/*` ])
+Gulp.task('demos', () => Gulp.src([ `${Config.demos.src}/**/*` ])
   .pipe($.size({ title: 'Demo files!', gzip: false, showFiles: true }))
-  .pipe(Gulp.dest(`${Config.dist.root}/demos`)));
+  .pipe(Gulp.dest(`${Config.demos.dist}`)));
 
 Gulp.task('templates', ['demos'], () => {
   const parseData = function (file) {
@@ -24,7 +25,7 @@ Gulp.task('templates', ['demos'], () => {
   };
 
   const getLayoutPath = function (name) {
-    return path.resolve(process.cwd(), `${Config.src.layouts}/`, `${name}.pug`);
+    return path.resolve(process.cwd(), `${Config.docs.layouts}/`, `${name}.pug`);
   }
 
   const wrapHtml = function (file, name) {
@@ -35,13 +36,19 @@ Gulp.task('templates', ['demos'], () => {
     return { content: html };
   }
 
-  return Gulp.src([ `${Config.src.pages}/*.md` ])
+  return Gulp.src([ `${Config.docs.pages}/*.md` ])
     .pipe($.plumber(Config.plumberHandler))
-    .pipe($.data((file) => require('../docs/config.json')))
+    .pipe($.data((file) => require(Config.docs.config)))
     .pipe($.data((file) => parseData(file)))
+    .pipe($.data((file) => {
+      return {
+        'production': isProd ? Config.environment : '',
+        'min': isProd ? '.min' : ''
+      }
+    }))
     .pipe($.fileInclude({
       prefix: '@@',
-      basepath: './docs/'
+      basepath: `${Config.docs.src}/`
     }))
     .pipe($.markdown())
     .pipe($.data((file) => wrapHtml(file, file.data.layout)))
@@ -53,9 +60,8 @@ Gulp.task('templates', ['demos'], () => {
       }
       path.extname = '.html';
     }))
-    .pipe($.jsbeautifier({ indent_level: 2 }))
-    .pipe($.htmlmin({ collapseWhitespace: true }))
-    .pipe($.size({ title: 'Templates!', gzip: false, showFiles: true }))
-    .pipe(Gulp.dest(`${Config.dist.root}`))
+    .pipe(isProd ? $.htmlmin({ collapseWhitespace: true }) : $.jsbeautifier({ indent_level: 2 }))
+    .pipe(isProd ? $.util.noop() : $.size({ title: 'Templates!', gzip: false, showFiles: true }))
+    .pipe(Gulp.dest(`${Config.docs.dist}`))
     .pipe($.plumber.stop());
 });

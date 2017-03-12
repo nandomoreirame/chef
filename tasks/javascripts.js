@@ -5,19 +5,18 @@ import Config from '../config';
 
 import Gulp from 'gulp';
 import Plugins from 'gulp-load-plugins';
+import WebpackStream from 'webpack-stream';
 
 const $ = Plugins();
+const isProd = Config.environment === 'production' ? true : false;
 
-Gulp.task('javascripts', () =>  Gulp.src([`${Config.src.javascripts}/*.js`])
+Gulp.task('javascripts', () =>  Gulp.src([`${Config.javascripts.src}/*.js`])
   .pipe($.plumber(Config.plumberHandler))
+  .pipe($.sourcemaps.init())
+  .pipe(WebpackStream(Config.webpack))
   .pipe($.include(Config.jsIncludeConfig))
-  .pipe($.jsbeautifier(Config.jsbeautifier))
   .pipe($.header(Config.banner.join('\n'), { pkg }))
-  .pipe($.size({ title: 'Javascripts', gzip: false, showFiles: true }))
-  .pipe(Gulp.dest(`${Config.dist.javascripts}`))
-  .pipe($.uglify())
-  .pipe($.rename({ suffix: '.min' }))
-  .pipe($.header(Config.banner.join('\n'), { pkg }))
-  .pipe($.size({ title: 'Minify Javascripts', gzip: false, showFiles: true }))
-  .pipe(Gulp.dest(`${Config.dist.javascripts}`))
+  .pipe(isProd ? $.util.noop() : $.size({ title: 'Javascripts', gzip: false, showFiles: true }))
+  .pipe($.sourcemaps.write())
+  .pipe(Gulp.dest(`${Config.javascripts.dist}`))
   .pipe($.plumber.stop()));

@@ -23,9 +23,7 @@
     "test",
     "tests"
   ],
-  "dependencies": {
-    "prism-js": "^1.0.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "bootstrap": "v4.0.0-alpha.6"
   }

@@ -3,11 +3,12 @@
     "title": "Chef!",
     "description": "Create styleguide like a boss using Gulp!"
   },
+  "lang": "en",
   "stylesheets": [
-    "main.css"
+    "main"
   ],
   "javascripts": [
-    "main.js"
+    "main"
   ],
   "google_analytics": "UA-XXXXX-X"
 }

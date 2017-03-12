@@ -10,12 +10,12 @@ const bSync = browserSync.create();
 Gulp.task('server', () => {
   bSync.init({
     server: {
-      baseDir: `${Config.dist.root}`
+      baseDir: `${Config.docs.dist}`
     }
   });
 
-  Gulp.watch(`${Config.src.root}/**/*.{pug,html,md,markdown}`, ['demos', 'templates']);
-  Gulp.watch(`${Config.src.stylesheets}/**/*.{sass,scss}`, ['stylesheets']);
-  Gulp.watch(`${Config.src.javascripts}/**/*`, ['javascripts']);
-  Gulp.watch(`${Config.dist.root}/**/*.{html,css,js}`).on('change', bSync.reload);
+  Gulp.watch(`${Config.docs.src}/**/*.{pug,html,md,markdown}`, ['demos', 'templates']);
+  Gulp.watch(`${Config.stylesheets.src}/**/*.{sass,scss}`, ['stylesheets']);
+  Gulp.watch(`${Config.javascripts.src}/**/*`, ['javascripts']);
+  Gulp.watch(`${Config.docs.dist}/**/*.{html,css,js}`).on('change', bSync.reload);
 });

@@ -4,34 +4,26 @@ aside.cf-sidebar
       h2= 'Chef'
         small=' styleguide'
     nav.cf-navbar
-      ul.cf-navbar__nav
+      ul.cf-navbar__nav.js-accordion
         li.cf-navbar__nav-item
-          a(href="#").js-accordion= 'Download'
-          ul
+          a(href="#")= 'Introdution'
+        li.cf-navbar__nav-item
+          a(href="#")= 'Download'
+        li.cf-navbar__nav-item
+          a(href="#")= 'Logotype'
+        li.cf-navbar__nav-item
+          a(href="#")= 'Colors'
+        li.cf-navbar__nav-item
+          a(href="#")= 'Typografy'
+        li.cf-navbar__nav-item
+          a(href="#")= 'Grid system'
+        li.cf-navbar__nav-item
+          a(href="#").js-accordion-trigger= 'Components'
+          ul.is-hidden
             li
               a(href="#")= 'test accordion'
         li.cf-navbar__nav-item
-          a(href="#")= 'Setup'
-          ul
-            li
-              a(href="#")= 'test accordion'
-        li.cf-navbar__nav-item
-          a(href="#")= 'Components'
-          ul
-            li
-              a(href="#")= 'test accordion'
-        li.cf-navbar__nav-item
-          a(href="#")= 'Odds & Ends'
-          ul
-            li
-              a(href="#")= 'test accordion'
-        li.cf-navbar__nav-item
-          a(href="#")= 'Support'
-          ul
-            li
-              a(href="#")= 'test accordion'
-        li.cf-navbar__nav-item
-          a(href="#")= 'GitHub'
-          ul
+          a(href="#").js-accordion-trigger= 'Utility'
+          ul.is-hidden
             li
               a(href="#")= 'test accordion'

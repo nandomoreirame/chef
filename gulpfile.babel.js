@@ -11,7 +11,7 @@ import javascripts from './tasks/javascripts';
 import server from './tasks/server';
 import version from './tasks/version';
 
-Gulp.task('clean', () => Gulp.src([ `${Config.dist.root}` ], { read: false })
+Gulp.task('clean', () => Gulp.src([ `${Config.docs.dist}` ], { read: false })
   .pipe(Clean({ force: true })));
 
 Gulp.task('build', ['clean'], () => Sequence(

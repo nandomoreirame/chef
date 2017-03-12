@@ -1,35 +1,69 @@
 'use strict';
 
 import pkg from './package.json';
-import Notify from 'gulp-notify';
-import Bourbon from 'node-bourbon';
+import notify from 'gulp-notify';
+import util from 'gulp-util';
+import bourbon from 'node-bourbon';
+import webpack from 'webpack';
 
-const config = {
-  src: {
-    root: './docs',
-    javascripts: './docs/assets/javascripts',
-    stylesheets: './docs/assets/stylesheets',
-    fonts: './docs/assets/fonts',
-    images: './docs/assets/images',
-    demos: './docs/demos',
-    layouts: './docs/layouts',
-    pages: './docs/pages',
+// gulp --type production
+const ENV = util.env.type ? util.env.type : 'development';
+const webpackPlugins = [];
+let min = '';
+
+if(ENV === 'production') {
+  min = '.min';
+  webpackPlugins.push(
+    new webpack.optimize.UglifyJsPlugin({
+      sourceMap: true
+    })
+  );
+}
+
+webpackPlugins.push(
+  new webpack.DefinePlugin({
+    'process.env': {
+      'NODE_ENV': JSON.stringify(ENV)
+    }
+  })
+);
+
+module.exports = {
+  environment: ENV,
+  docs: {
+    config: `${__dirname}/docs/config.json`,
+    src: `${__dirname}/docs`,
+    dist: `${__dirname}/dist`,
+    layouts: `${__dirname}/docs/layouts`,
+    pages: `${__dirname}/docs/pages`
   },
-  dist: {
-    root: './dist',
-    javascripts: './dist/assets/javascripts',
-    stylesheets: './dist/assets/stylesheets',
-    fonts: './dist/assets/fonts',
-    images: './dist/assets/images'
+  demos: {
+    src: `${__dirname}/docs/demos`,
+    dist: `${__dirname}/dist/demos`
+  },
+  stylesheets: {
+    src: `${__dirname}/docs/assets/stylesheets`,
+    dist: `${__dirname}/dist/assets/stylesheets`
+  },
+  javascripts: {
+    src: `${__dirname}/docs/assets/javascripts`,
+    dist: `${__dirname}/dist/assets/javascripts`
+  },
+  fonts: {
+    src: `${__dirname}/docs/assets/fonts`,
+    dist: `${__dirname}/dist/assets/fonts`
+  },
+  images: {
+    src: `${__dirname}/docs/assets/images`,
+    dist: `${__dirname}/dist/assets/images`
   },
   sassConfig: {
-    compass: true,
-    sourcemap: false,
+    sourcemap: true,
     noCache: true,
     style: 'nested',
-    sourceComments: false,
+    sourceComments: true,
     includePaths: [
-      Bourbon.includePaths,
+      bourbon.includePaths,
       `sass`,
       `stylesheets`,
       `node_modules`,
@@ -42,8 +76,8 @@ const config = {
     includePaths: [
       `node_modules`,
       `bower_components`,
-      `js`,
       `javascripts`,
+      `js`
     ]
   },
   autoprefixer: {
@@ -79,8 +113,28 @@ const config = {
     property: 'page',
     remove: true
   },
+  webpack: {
+    watch: false,
+    progress: true,
+    devtool: 'source-map',
+    output: {
+      path: `${__dirname}/dist/assets/javascripts`,
+      filename: `[name]${min}.js`
+    },
+    plugins: webpackPlugins,
+    loaders: [
+      {
+        test: /\.js$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader?presets[]=env'
+      }
+    ],
+    babel: {
+      presets: ['es2015']
+    }
+  },
   plumberHandler: {
-    errorHandler: Notify.onError({
+    errorHandler: notify.onError({
       title   : 'Gulp',
       message : 'Error: <%= error.message %>'
     })
@@ -96,5 +150,3 @@ const config = {
     ''
   ]
 };
-
-module.exports = config;
