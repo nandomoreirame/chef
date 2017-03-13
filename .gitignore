@@ -53,3 +53,4 @@ jspm_packages
 .env
 
 dist
+.publish
