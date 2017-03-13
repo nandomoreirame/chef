@@ -1,0 +1,23 @@
+---
+layout: page
+title: Colors
+intro: Laborum duis id nulla exercitation sint fugiat cillum officia sunt non.
+page_class: colors
+---
+
+{{#each colors}}
+  <ul class="cf-colors">
+    <li class="cf-colors__item">
+      <h4>{{@key}} Pallete</h4>
+      <ul class="cf-colors__container">
+        {{#each this}}
+          <li class="cf-colors__color">
+            <span style="background-color: {{this}}"></span>
+            <p><code>{{this}}</code></p>
+            <p><code>${{@key}}</code></p>
+          </li>
+        {{/each}}
+      </ul>
+    </li>
+  </ul>
+{{/each}}

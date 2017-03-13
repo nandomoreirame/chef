@@ -1,0 +1,47 @@
+{
+  "base": {
+    "white": "#fff",
+    "black": "#000",
+    "text": "#424242"
+  },
+  "gray": {
+    "gray-lighten-2": "#ebebeb",
+    "gray-lighten-1": "#e0e0e0",
+    "gray": "#bdbdbd",
+    "gray-darken-1": "#989898",
+    "gray-darken-2": "#757575"
+  },
+  "blue": {
+    "blue-lighten-2": "#03a9f4",
+    "blue-lighten-1": "#039be5",
+    "blue": "#0288d1",
+    "blue-darken-1": "#0277bd",
+    "blue-darken-2": "#01579b"
+  },
+  "yellow": {
+    "yellow-lighten": "#ffe57f",
+    "yellow": "#ffd740",
+    "yellow-darken": "#ffc400"
+  },
+  "green": {
+    "green-lighten": "#66bb6a",
+    "green": "#4caf50",
+    "green-darken": "#43a047"
+  },
+  "orange": {
+    "orange-lighten": "#ff9100",
+    "orange": "#f57c00",
+    "orange-darken": "#ef6c00"
+  },
+  "red": {
+    "red-lighten": "#ef5350",
+    "red": "#e53935",
+    "red-darken": "#d32f2f"
+  },
+  "status": {
+    "success": "#4caf50",
+    "warning": "#f57c00",
+    "info": "#039be5",
+    "error": "#d32f2f"
+  }
+}

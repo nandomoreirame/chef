@@ -7,8 +7,11 @@ html(lang=lang)
     meta(name='viewport', content='width=device-width, initial-scale=1, user-scalable=no')
     title #{title} - #{site.title} | #{site.description}
 
+    // v4-alpha.getbootstrap.com
+    link(type='text/css', href='//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css', rel='stylesheet')
+
     each file in stylesheets
-      link(type='text/css', href='/assets/stylesheets/' + file + min + '.css', rel='stylesheet')
+      link(type='text/css', href=base_url + '/assets/stylesheets/' + file + min + '.css', rel='stylesheet')
 
     if production
       script.
@@ -22,10 +25,14 @@ html(lang=lang)
     main.cf-main
       include ../layouts/_sidebar.pug
       block content
-        h1= title
-        .cf-content!= content
+        main.cf-content
+          header.cf-page-heading
+            h1.cf-page-title!= title
+            if intro
+              p.cf-page-intro=intro
+          != content
         footer.cf-footer
           p // footer default
     block scripts
       each file in javascripts
-        script(src='/assets/javascripts/' + file + min + '.js')
+        script(src=base_url + '/assets/javascripts/' + file + min + '.js')

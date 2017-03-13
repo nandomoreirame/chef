@@ -1,4 +1,9 @@
 extends ../layouts/default.pug
 
 block content
-  .cf-content!= content
+  main.cf-content
+    header.cf-page-heading
+      h1.cf-page-title!= title
+      if intro
+        p.cf-page-intro=intro
+    != content

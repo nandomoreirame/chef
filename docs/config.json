@@ -1,4 +1,6 @@
 {
+  "domain": "https://nandomoreira.me",
+  "base_url": "/chef",
   "site": {
     "title": "Chef!",
     "description": "Create styleguide like a boss using Gulp!"
@@ -10,5 +12,11 @@
   "javascripts": [
     "main"
   ],
+  "pages": {
+    "/" : "Introduction",
+    "/colors" : "Colors",
+    "/typography" : "Typography",
+    "/grid" : "Grid system"
+  },
   "google_analytics": "UA-XXXXX-X"
 }

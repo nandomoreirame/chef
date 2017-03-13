@@ -5,18 +5,10 @@ aside.cf-sidebar
         small=' styleguide'
     nav.cf-navbar
       ul.cf-navbar__nav.js-accordion
-        li.cf-navbar__nav-item
-          a(href="#")= 'Introdution'
-        li.cf-navbar__nav-item
-          a(href="#")= 'Download'
-        li.cf-navbar__nav-item
-          a(href="#")= 'Logotype'
-        li.cf-navbar__nav-item
-          a(href="#")= 'Colors'
-        li.cf-navbar__nav-item
-          a(href="#")= 'Typografy'
-        li.cf-navbar__nav-item
-          a(href="#")= 'Grid system'
+        each title, link in pages
+          li.cf-navbar__nav-item
+            a(href=base_url + link)= title
+
         li.cf-navbar__nav-item
           a(href="#").js-accordion-trigger= 'Components'
           ul.is-hidden

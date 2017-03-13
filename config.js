@@ -35,7 +35,8 @@ module.exports = {
     src: `${__dirname}/docs`,
     dist: `${__dirname}/dist`,
     layouts: `${__dirname}/docs/layouts`,
-    pages: `${__dirname}/docs/pages`
+    pages: `${__dirname}/docs/pages`,
+    data: `${__dirname}/docs/data`
   },
   demos: {
     src: `${__dirname}/docs/demos`,

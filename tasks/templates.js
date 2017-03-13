@@ -3,6 +3,7 @@
 import fs from 'fs';
 import path from 'path';
 import frontMatter from 'front-matter';
+import yaml from 'js-yaml';
 
 import pkg from '../package.json';
 import Config from '../config';
@@ -36,7 +37,7 @@ Gulp.task('templates', ['demos'], () => {
     return { content: html };
   }
 
-  return Gulp.src([ `${Config.docs.pages}/*.md` ])
+  return Gulp.src([ `${Config.docs.pages}/*` ])
     .pipe($.plumber(Config.plumberHandler))
     .pipe($.data((file) => require(Config.docs.config)))
     .pipe($.data((file) => parseData(file)))
@@ -46,11 +47,20 @@ Gulp.task('templates', ['demos'], () => {
         'min': isProd ? '.min' : ''
       }
     }))
-    .pipe($.fileInclude({
-      prefix: '@@',
-      basepath: `${Config.docs.src}/`
+    .pipe($.data((file) => {
+      fs.readdir(Config.docs.data, (err, files) => {
+        let yamlData = [];
+        files.forEach(file => {
+          yamlData.push(yaml.safeLoad(fs.readFileSync(`${Config.docs.data}/${file}`)));
+        });
+        return yamlData;
+      });
     }))
-    .pipe($.markdown())
+    .pipe($.hb({
+      partials: `${Config.demos.src}/**/*.hbs`,
+      // helpers: `${Config.docs.data}`,
+      data: `${Config.docs.data}/*.json`
+    }))
     .pipe($.data((file) => wrapHtml(file, file.data.layout)))
     .pipe($.pug())
     .pipe($.rename(path => {

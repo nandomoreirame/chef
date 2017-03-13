@@ -4,6 +4,7 @@ import Config from './config';
 import Gulp from 'gulp';
 import Sequence from 'run-sequence';
 import Clean from 'gulp-clean';
+import GHPages from 'gulp-gh-pages';
 
 import templates from './tasks/templates';
 import stylesheets from './tasks/stylesheets';
@@ -22,3 +23,11 @@ Gulp.task('build', ['clean'], () => Sequence(
 
 Gulp.task('watch', ['build', 'server']);
 Gulp.task('default', ['watch']);
+
+Gulp.task('gh-pages', () => Gulp.src(`${Config.docs.dist}/**/*`)
+  .pipe(GHPages()));
+
+Gulp.task('deploy', () => Sequence(
+  ['stylesheets', 'javascripts', 'templates'],
+  ['gh-pages']
+));
