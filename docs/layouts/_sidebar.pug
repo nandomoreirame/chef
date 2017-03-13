@@ -14,13 +14,14 @@ aside.cf-sidebar
           li.cf-navbar__nav-item
             a(href=base_url + link)= title
 
-        li.cf-navbar__nav-item
+        li.cf-navbar__nav-item.cf-navbar__nav-item--accordion
           a(href="#").js-accordion-trigger= 'Components'
-          ul.is-hidden
-            li
-              a(href="#")= 'test accordion'
-        li.cf-navbar__nav-item
+          ul
+            each title, link in pages
+              li
+                a(href=base_url + link)= title
+        li.cf-navbar__nav-item.cf-navbar__nav-item--accordion
           a(href="#").js-accordion-trigger= 'Utility'
-          ul.is-hidden
+          ul
             li
               a(href="#")= 'test accordion'
