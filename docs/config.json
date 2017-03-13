@@ -3,7 +3,7 @@
   "base_url": "/chef",
   "site": {
     "title": "Chef!",
-    "description": "Create styleguide like a boss using Gulp!"
+    "description": "Cook delicious styleguides using Gulp!"
   },
   "lang": "en",
   "stylesheets": [

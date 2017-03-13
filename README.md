@@ -1,3 +1,3 @@
 # Chef
 
-> Create styleguide like a boss using Gulp!
+> Cook delicious styleguides using Gulp!

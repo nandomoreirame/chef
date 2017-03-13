@@ -1,7 +1,7 @@
 {
   "name": "chef",
   "version": "0.0.3",
-  "description": "Create styleguide like a boss using Gulp!",
+  "description": "Cook delicious styleguides using Gulp!",
   "url": "https://github.com/nandomoreirame/chef",
   "main": "gulpfile.babel.js",
   "scripts": {
