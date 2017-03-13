@@ -43,6 +43,7 @@ Gulp.task('templates', ['demos'], () => {
     .pipe($.data((file) => parseData(file)))
     .pipe($.data((file) => {
       return {
+        'base_url': isProd ? '/chef' : '',
         'production': isProd ? Config.environment : '',
         'min': isProd ? '.min' : ''
       }
