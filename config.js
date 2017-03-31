@@ -9,25 +9,9 @@ import webpack from 'webpack'
 
 // gulp --type production
 const ENV = util.env.type ? util.env.type : 'development'
+const isProd = (ENV === 'production')
 const webpackPlugins = []
 let min = ''
-
-if (ENV === 'production') {
-  min = '.min'
-  webpackPlugins.push(
-    new webpack.optimize.UglifyJsPlugin({
-      sourceMap: true
-    })
-  )
-}
-
-webpackPlugins.push(
-  new webpack.DefinePlugin({
-    'process.env': {
-      'NODE_ENV': JSON.stringify(ENV)
-    }
-  })
-)
 
 module.exports = {
   environment: ENV,
@@ -117,18 +101,27 @@ module.exports = {
   },
   webpack: {
     watch: false,
-    progress: true,
-    devtool: 'source-map',
+    // progress: true,
+    // devtool: 'source-map',
     output: {
       path: `${__dirname}/dist/assets/javascripts`,
-      filename: `[name]${min}.js`
+      filename: isProd ? `[name].min.js` : `[name].js`
     },
-    plugins: webpackPlugins,
-    loaders: [{
-      test: /\.js$/,
-      exclude: /(node_modules|bower_components)/,
-      loader: 'babel-loader?presets[]=env'
-    }],
+    plugins: isProd ? [
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.DefinePlugin({
+        'process.env': {
+          'NODE_ENV': `"${ENV}"`
+        }
+      })
+    ] : [],
+    module: {
+      loaders: [{
+        test: /.js$/,
+        exclude: /(node_modules|bower_components)/,
+        loader: 'babel-loader'
+      }]
+    },
     babel: {
       presets: ['es2015']
     }
