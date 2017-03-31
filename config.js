@@ -77,8 +77,7 @@ module.exports = {
       'ios >= 6',
       'android >= 4.4',
       'bb >= 10'
-    ],
-    cascade: false
+    ]
   },
   jsbeautifier: {
     indent_size: 2,
