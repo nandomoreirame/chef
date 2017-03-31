@@ -25,6 +25,23 @@ body
 a
   text-decoration: none
 
+.z-1,
+.z-2,
+.z-3
+  position: inherit
+
+.z-1
+  box-shadow: $z-1
+  z-index: 1
+
+.z-2
+  box-shadow: $z-2
+  z-index: 2
+
+.z-3
+  box-shadow: $z-3
+  z-index: 3
+
 .cf-sidebar
   border: $sidebar-border
   background-color: $sidebar-color
@@ -137,15 +154,38 @@ a
         width: 0
         height: 0
 
+.cf-card
+  background-color: #fff
+  border-radius: 3px
+  margin: 0 0 30px
+  @extend .z-1
+
+  &__heading
+    border-bottom: 1px solid rgba($gray-lighten-1, .75)
+    padding-bottom: .5em
+    margin: 0 0 1em
+
+  &__title,
+  &__lead
+    margin: 0 0 .3em
+
+  &__title
+    text-transform: capitalize
+    color: $gray-darken-2
+    font-weight: 300
+
+  &__lead
+    font-weight: 300
+    font-size: 1em
+    line-height: 1.3
+
+  &__inner
+    padding: 30px
+
 .cf-colors
   &, ul
     list-style: none
     padding: 0
-
-  h4
-    text-transform: capitalize
-    color: $gray-darken-2
-    font-weight: 300
 
   &__container
     display: flex
@@ -153,9 +193,7 @@ a
     flex-direction: row
 
   &__item
-    padding: 1em
-    border: 1px solid $gray-lighten-1
-    margin-bottom: 2em
+    padding: 30px
 
   &__color
     flex: 1 1 25%
@@ -175,7 +213,7 @@ a
       color: $gray-darken-1
 
 .cf-exemple
-  border: 1px solid $gray-lighten-1
+  @extend .cf-card
   margin-bottom: 2em
 
   code,
@@ -186,10 +224,14 @@ a
     margin: 0
 
   pre
-    background-color: rgba($gray-lighten-1, .5)
+    background-color: rgba($gray-lighten-1, .2)
+    border-top: 1px solid $gray-lighten-2
+    border-bottom-right-radius: .2em
+    border-bottom-left-radius: .2em
+    padding: 30px
 
     code
       background: none
 
   &__demo
-    padding: 1em
+    padding: 30px

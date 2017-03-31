@@ -8,6 +8,7 @@ const bSync = browserSync.create()
 
 Gulp.task('server', () => {
   bSync.init({
+    port: 3000,
     server: {
       baseDir: `${Config.docs.dist}`
     }

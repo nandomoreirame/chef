@@ -6,9 +6,11 @@ page_class: colors
 ---
 
 {{#each colors}}
-  <ul class="cf-colors">
+  <ul class="cf-colors cf-card">
     <li class="cf-colors__item">
-      <h4>{{@key}} Pallete</h4>
+      <div class="cf-card__heading">
+        <h4 class="cf-card__title">{{@key}} Pallete</h4>
+      </div>
       <ul class="cf-colors__container">
         {{#each this}}
           <li class="cf-colors__color">

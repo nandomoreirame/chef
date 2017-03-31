@@ -1,6 +1,6 @@
 {
   "domain": "https://nandomoreira.me",
-  "base_url": "",
+  "base_url": "/",
   "site": {
     "title": "Chef!",
     "description": "Cook delicious styleguides using Gulp!"
