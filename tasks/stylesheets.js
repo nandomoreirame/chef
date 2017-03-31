@@ -1,13 +1,13 @@
-'use strict';
+'use strict'
 
-import pkg from '../package.json';
-import Config from '../config';
+import pkg from '../package.json'
+import Config from '../config'
 
-import Gulp from 'gulp';
-import Plugins from 'gulp-load-plugins';
+import Gulp from 'gulp'
+import Plugins from 'gulp-load-plugins'
 
-const $ = Plugins();
-const isProd = Config.environment === 'production' ? true : false;
+const $ = Plugins()
+const isProd = Config.environment === 'production'
 
 Gulp.task('stylesheets', () => Gulp.src([ `${Config.stylesheets.src}/*.sass` ])
   .pipe($.plumber(Config.plumberHandler))
@@ -21,4 +21,4 @@ Gulp.task('stylesheets', () => Gulp.src([ `${Config.stylesheets.src}/*.sass` ])
   .pipe(isProd ? $.util.noop() : $.size({ title: 'Stylesheets!', gzip: false, showFiles: true }))
   .pipe($.sourcemaps.write())
   .pipe(Gulp.dest(`${Config.stylesheets.dist}`))
-  .pipe($.plumber.stop()));
+  .pipe($.plumber.stop()))

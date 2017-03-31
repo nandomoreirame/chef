@@ -1,40 +1,38 @@
-'use strict';
+/* eslint handle-callback-err: 0 */
+'use strict'
 
-import fs from 'fs';
-import path from 'path';
-import frontMatter from 'front-matter';
-import yaml from 'js-yaml';
+import fs from 'fs'
+import path from 'path'
+import frontMatter from 'front-matter'
+import yaml from 'js-yaml'
+import Config from '../config'
+import Gulp from 'gulp'
+import Plugins from 'gulp-load-plugins'
 
-import pkg from '../package.json';
-import Config from '../config';
-
-import Gulp from 'gulp';
-import Plugins from 'gulp-load-plugins';
-
-const $ = Plugins();
-const isProd = Config.environment === 'production' ? true : false;
+const $ = Plugins()
+const isProd = Config.environment === 'production'
 
 Gulp.task('demos', () => Gulp.src([ `${Config.demos.src}/**/*` ])
   .pipe($.size({ title: 'Demo files!', gzip: false, showFiles: true }))
-  .pipe(Gulp.dest(`${Config.demos.dist}`)));
+  .pipe(Gulp.dest(`${Config.demos.dist}`)))
 
 Gulp.task('templates', ['demos'], () => {
   const parseData = function (file) {
-    const content = frontMatter(String(file.contents));
-    file.contents = new Buffer(content.body);
-    return content.attributes;
-  };
+    const content = frontMatter(String(file.contents))
+    file.contents = new Buffer(content.body)
+    return content.attributes
+  }
 
   const getLayoutPath = function (name) {
-    return path.resolve(process.cwd(), `${Config.docs.layouts}/`, `${name}.pug`);
+    return path.resolve(process.cwd(), `${Config.docs.layouts}/`, `${name}.pug`)
   }
 
   const wrapHtml = function (file, name) {
-    const html = String(file.contents),
-          path = getLayoutPath(name);
+    const html = String(file.contents)
+    const path = getLayoutPath(name)
 
-    file.contents = fs.readFileSync(path);
-    return { content: html };
+    file.contents = fs.readFileSync(path)
+    return { content: html }
   }
 
   return Gulp.src([ `${Config.docs.pages}/*` ])
@@ -50,12 +48,12 @@ Gulp.task('templates', ['demos'], () => {
     }))
     .pipe($.data((file) => {
       fs.readdir(Config.docs.data, (err, files) => {
-        let yamlData = [];
+        let yamlData = []
         files.forEach(file => {
-          yamlData.push(yaml.safeLoad(fs.readFileSync(`${Config.docs.data}/${file}`)));
-        });
-        return yamlData;
-      });
+          yamlData.push(yaml.safeLoad(fs.readFileSync(`${Config.docs.data}/${file}`)))
+        })
+        return yamlData
+      })
     }))
     .pipe($.hb({
       partials: `${Config.demos.src}/**/*.hbs`,
@@ -66,13 +64,13 @@ Gulp.task('templates', ['demos'], () => {
     .pipe($.pug())
     .pipe($.rename(path => {
       if (path.basename !== 'index') {
-        path.dirname = path.basename;
-        path.basename = 'index';
+        path.dirname = path.basename
+        path.basename = 'index'
       }
-      path.extname = '.html';
+      path.extname = '.html'
     }))
     .pipe(isProd ? $.htmlmin({ collapseWhitespace: true }) : $.jsbeautifier({ indent_level: 2 }))
     .pipe(isProd ? $.util.noop() : $.size({ title: 'Templates!', gzip: false, showFiles: true }))
     .pipe(Gulp.dest(`${Config.docs.dist}`))
-    .pipe($.plumber.stop());
-});
+    .pipe($.plumber.stop())
+})
