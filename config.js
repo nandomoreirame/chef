@@ -101,8 +101,8 @@ module.exports = {
   },
   webpack: {
     watch: false,
-    // progress: true,
-    // devtool: 'source-map',
+    progress: true,
+    devtool: 'source-map',
     output: {
       path: `${__dirname}/dist/assets/javascripts`,
       filename: isProd ? `[name].min.js` : `[name].js`
