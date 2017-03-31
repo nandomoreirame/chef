@@ -1,23 +1,24 @@
-'use strict';
+/* eslint no-unused-vars:0 */
+'use strict'
 
-import pkg from './package.json';
-import notify from 'gulp-notify';
-import util from 'gulp-util';
-import bourbon from 'node-bourbon';
-import webpack from 'webpack';
+import pkg from './package.json'
+import notify from 'gulp-notify'
+import util from 'gulp-util'
+import bourbon from 'node-bourbon'
+import webpack from 'webpack'
 
 // gulp --type production
-const ENV = util.env.type ? util.env.type : 'development';
-const webpackPlugins = [];
-let min = '';
+const ENV = util.env.type ? util.env.type : 'development'
+const webpackPlugins = []
+let min = ''
 
-if(ENV === 'production') {
-  min = '.min';
+if (ENV === 'production') {
+  min = '.min'
   webpackPlugins.push(
     new webpack.optimize.UglifyJsPlugin({
       sourceMap: true
     })
-  );
+  )
 }
 
 webpackPlugins.push(
@@ -26,7 +27,7 @@ webpackPlugins.push(
       'NODE_ENV': JSON.stringify(ENV)
     }
   })
-);
+)
 
 module.exports = {
   environment: ENV,
@@ -97,7 +98,7 @@ module.exports = {
   },
   jsbeautifier: {
     indent_size: 2,
-    indent_char: ' ',
+    indent_char: ' '
   },
   imageConfig: {
     pngquant: true,
@@ -123,21 +124,19 @@ module.exports = {
       filename: `[name]${min}.js`
     },
     plugins: webpackPlugins,
-    loaders: [
-      {
-        test: /\.js$/,
-        exclude: /(node_modules|bower_components)/,
-        loader: 'babel-loader?presets[]=env'
-      }
-    ],
+    loaders: [{
+      test: /\.js$/,
+      exclude: /(node_modules|bower_components)/,
+      loader: 'babel-loader?presets[]=env'
+    }],
     babel: {
       presets: ['es2015']
     }
   },
   plumberHandler: {
     errorHandler: notify.onError({
-      title   : 'Gulp',
-      message : 'Error: <%= error.message %>'
+      title: 'Gulp',
+      message: 'Error: <%= error.message %>'
     })
   },
   banner: [
@@ -150,4 +149,4 @@ module.exports = {
     ' */',
     ''
   ]
-};
+}
