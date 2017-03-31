@@ -1,6 +1,6 @@
 {
   "name": "chef",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Cook delicious styleguides using Gulp!",
   "main": "gulpfile.babel.js",
   "authors": [
