@@ -1,4 +1,4 @@
-module.exports = (() => {
+export default (() => {
   const accordions = document.getElementsByClassName('js-accordion')
 
   for (let i = 0; i < accordions.length; i++) {
